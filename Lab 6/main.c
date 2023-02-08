@@ -2,54 +2,51 @@
 
 #include <stdio.h>
 
-void merge_sort(int a[],int low,int high)
+void merge_sort(int a[],int p,int r)
 {
-    int mid;
-    if(low<high)
+
+    if(p<r)
     {
-        mid=(low+high)/2;
-        merge_sort(a,low,mid);
-        merge_sort(a,mid+1,high);
-        merge(a,low,mid,high);
+        int q=(p+r)/2;
+        merge_sort(a,p,q);
+        merge_sort(a,q+1,r);
+        merge(a,p,q,r);
     }
 }
 
-void merge(int a[],int low,int mid,int high)
+void merge(int a[],int p, int q, int r)
 {
-    int i,j,k,c[50];
-    i=low;
-    j=mid+1;
-    k=low;
-    while(i<=mid && j<=high)
+   int n1=q-p+1;
+    int n2=r-q;
+    int L[n1+1],R[n2+1];
+    int i,j,k;
+        L[n1]=9999;
+    R[n2]=9999;
+    i=0;
+    j=0;
+    for(i=0;i<n1;i++)
     {
-        if(a[i]<a[j])
+        L[i]=a[p+i];
+    }
+    for(j=0;j<n2;j++)
+    {
+        R[j]=a[q+j+1];
+    }
+
+    for(k=p;k<=r;k++)
+    {
+        if(L[i]<=R[j])
         {
-            c[k]=a[i];
+            a[k]=L[i];
             i++;
         }
         else
         {
-            c[k]=a[j];
+            a[k]=R[j];
             j++;
         }
-        k++;
     }
-    while(i<=mid)
-    {
-        c[k]=a[i];
-        i++;
-        k++;
-    }
-    while(j<=high)
-    {
-        c[k]=a[j];
-        j++;
-        k++;
-    }
-    for(i=low;i<=high;i++)
-    {
-        a[i]=c[i];
-    }
+
 }
 
 
