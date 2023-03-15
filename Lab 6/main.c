@@ -1,5 +1,3 @@
-//merdge sort in recuurance 
-
 #include <stdio.h>
 
 void merge_sort(int a[],int p,int r)
