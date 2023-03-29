@@ -34,16 +34,19 @@ void buildmaxheap (int arr[], int n)
 
 int main()
 {
-    int n;
-    printf("Enter the size of the array: ");
-    scanf("%d", &n);
-    int arr[n];
+    // int n;
+    // printf("Enter the size of the array: ");
+    // scanf("%d", &n);
+    // int arr[n];
 
-    for (int i = 0; i < n; i++)
-    {
-        printf("enter the num: ");
-        scanf("%d", &arr[i]);
-    }
+    // for (int i = 0; i < n; i++)
+    // {
+    //     printf("enter the num: ");
+    //     scanf("%d", &arr[i]);
+    // }
+
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
     buildmaxheap(arr, n);
 
