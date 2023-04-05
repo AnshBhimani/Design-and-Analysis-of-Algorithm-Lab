@@ -10,7 +10,7 @@ partition(int a[], int low, int high)
 
     for (int j = low; j < high; j++)
     {
-        if (a[j] <= x)
+        if (a[j] <= x)                                                      
         {
             i = i + 1;
             
