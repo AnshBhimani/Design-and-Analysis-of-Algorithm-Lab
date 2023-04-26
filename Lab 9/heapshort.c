@@ -1,7 +1,3 @@
-//heap short
-
-//max heap
-
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,9 +1,7 @@
 
 #include <stdio.h>
 
-
-
-partition(int a[], int low, int high)
+int partition(int a[], int low, int high)
 {
     int x = a[high];
     int i = low - 1;
@@ -28,7 +26,7 @@ partition(int a[], int low, int high)
     return i + 1;
 }
 
-quicksort(int a[], int low, int high)
+int quicksort(int a[], int low, int high)
 {
     if (low < high)
     {
