@@ -1,72 +1,62 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <limits.h>
+#include <stdbool.h>
 
-int minkey(int key[], int mstset[], int n)
+#define V 4
+
+void printMST(int parent[], int graph[V][V])
 {
-    int min = 9999, min_index;
-    for (int i = 0; i < n; i++)
-    {
-        if (mstset[i] == 0 && key[i] < min)
-        {
-            min = key[i];
-            min_index = i;
-        }
-    }
+    for (int i = 1; i < V; i++)
+        printf("%d - %d    %d \n", parent[i], i, graph[i][parent[i]]);
+}
+
+int minKey(int key[], bool mstSet[])
+{
+    int min = INT_MAX, min_index;
+
+    for (int v = 0; v < V; v++)
+        if (mstSet[v] == false && key[v] < min)
+            min = key[v], min_index = v;
+
     return min_index;
 }
 
-void printmst(int parent[], int graph[10][10], int n)
+void primMST(int graph[V][V])
 {
-    printf("Edge \tWeight \n");
-    for (int i = 1; i < n; i++)
-    {
-        printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]);
-    }
-}
+    int parent[V];
+    int key[V];
+    bool mstSet[V];
 
-void prim(int graph[10][10], int n)
-{
-    int parent[n];
-    int key[n];
-    int mstset[n];
-    for (int i = 0; i < n; i++)
-    {
-        key[i] = 9999;
-        mstset[i] = 0;
-    }
+    for (int i = 0; i < V; i++)
+        key[i] = INT_MAX, mstSet[i] = false;
+
     key[0] = 0;
     parent[0] = -1;
-    for (int i = 0; i < n - 1; i++)
+
+    for (int count = 0; count < V - 1; count++)
     {
-        int u = minkey(key, mstset, n);
-        mstset[u] = 1;
-        for (int v = 0; v < n; v++)
-        {
-            if (graph[u][v] && mstset[v] == 0 && graph[u][v] < key[v])
-            {
-                parent[v] = u;
-                key[v] = graph[u][v];
-            }
-        }
+        int u = minKey(key, mstSet);
+
+        mstSet[u] = true;
+
+        for (int v = 0; v < V; v++)
+            if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])
+                parent[v] = u, key[v] = graph[u][v];
     }
-    printmst(parent, graph, n);
+
+    printMST(parent, graph);
 }
 
 int main()
 {
-    int n;
-    printf("Enter the number of vertices: ");
-    scanf("%d", &n);
-    int graph[10][10];
-    printf("Enter the adjacency matrix: ");
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            scanf("%d", &graph[i][j]);
-        }
-    }
-    prim(graph, n);
+    int graph[V][V] = {
+        {0, 10, 5, 6},
+        {10, 0, 2, 3},
+        {5, 2, 0, 1},
+        {6, 3, 1, 0}
+    };
+
+    primMST(graph);
+
     return 0;
 }
